@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300&display=swap');
+
+body {
+    background-color: #2f3640;
+    font-family: 'Signika Negative', sans-serif;
+}
+div.wrapper {
+    padding-left: 89px;
+}
+
+ion-icon {
+    pointer-events: none;
+}
