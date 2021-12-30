@@ -8,7 +8,7 @@
     
     <title>Work Manage App</title>
 </head>
-<body>
+<body onload="highlightMenu('home')">
     <?php require_once "menu_panel.html" ?>
     <div class="wrapper">
         <div class="welcome-box">
@@ -18,7 +18,7 @@
             <div class="inline">
                 <div><ion-icon name="bookmark-outline"></ion-icon> <br /> manage tasks</div>
                 <div><ion-icon name="people-outline"></ion-icon> <br /> manage employees</div>
-                <div><ion-icon name="people-circle-outline"></ion-icon> <br /> manage client</div>
+                <div><ion-icon name="people-circle-outline"></ion-icon> <br /> manage customers</div>
             </div>
             <div class="inline">
                 <div></div>
