@@ -1,6 +1,9 @@
-//maxCustomersOnPage is definded in src/customers_list.php in head tag
+//maxRecords has to be defined in template where this script is used
 
-function getCustomers(pageNum) 
+/**
+ * @typeOfRecords customers / employees
+ */
+function getRecords(typeOfRecords, pageNum) 
 {
     const http = new XMLHttpRequest();
     http.onreadystatechange = function() 
@@ -10,40 +13,41 @@ function getCustomers(pageNum)
             document.querySelector("tbody").innerHTML = this.responseText;
         }
     }
-
+    
     if(!Number.isInteger(pageNum))
     {
-        console.error(`funcion getCustomers takes integer but got pageNum=${pageNum}`);
+        console.warn(`funcion getRecords takes integer but got pageNum=${pageNum}`);
         pageNum = 1;
     }
 
-    let to = pageNum * maxCustomersOnPage;
-    let from = to - maxCustomersOnPage;
+    let to = pageNum * maxRecords;
+    let from = to - maxRecords;
 
-    http.open("GET", `../controller/get_data//get_data_controller.php?data=customers&from=${from}&to=${to}`);
+    http.open("GET", `../controller/get_data/get_data_controller.php?data=${typeOfRecords}&from=${from}&to=${to}`);
     http.send();
 }
 
-let customersCount = null;
+let recordsCount = null;
 /**
- * Once you call this function customers count
- * will be stored in variable "customersCount"
+ * Once you call this function records count
+ * will be stored in variable "recordsCount"
+ * @typeOfRecords customers / employees
  */
-function getCustomersCount() 
+function getRecordsCount(typeOfRecords) 
 {
     const http = new XMLHttpRequest();
     http.onreadystatechange = function() 
     {
         if (this.readyState == 4 && this.status == 200)
         {
-            customersCount = parseInt(this.responseText);
-            document.querySelector("span#customersCount").innerHTML = `(${this.responseText})`;
-            document.querySelector("span#customersPages").innerHTML = 
-                Math.ceil(parseFloat(this.responseText)/parseFloat(maxCustomersOnPage));
+            recordsCount = parseInt(this.responseText);
+            document.querySelector("span#recordsCount").innerHTML = `(${this.responseText})`;
+            document.querySelector("span#recordsPages").innerHTML = 
+                Math.ceil(parseFloat(this.responseText)/parseFloat(maxRecords));
         }
     }
 
-    http.open("GET", "../controller/get_data//get_data_controller.php?data=customersCount");
+    http.open("GET", `../controller/get_data//get_data_controller.php?data=${typeOfRecords}Count`);
     http.send();
 
 }

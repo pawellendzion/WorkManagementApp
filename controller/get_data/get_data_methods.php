@@ -3,12 +3,12 @@
 class GetData
 {
     private $conn;
-
+    
     function __construct()
     {
         $serverName = "localhost";
-        $userName = "GetData";
-        $password = "getdata123";
+        $userName = "root";
+        $password = "";
         $dbName = "dbwmapp";
 
         $this->conn = new \mysqli($serverName, $userName, $password, $dbName);

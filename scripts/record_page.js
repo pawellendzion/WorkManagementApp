@@ -1,31 +1,31 @@
-class CustomersListHandler
+class RecordPageHandler
 {
-    constructor(customersCount, maxCustomersOnPage)
+    constructor(recordsCount, maxRecords)
     {
-        this._maxCustomersOnPage = parseInt(maxCustomersOnPage);
+        this._maxRecords = parseInt(maxRecords);
         this._currentPage = 1;
-        this._customersCount = parseInt(customersCount);
+        this._recordsCount = parseInt(recordsCount);
         
         this._currentPageHtmlElem = document.querySelector("span#currentPage");
         this._currentPageHtmlElem.innerHTML = this._currentPage;
     }
 
-    nextPage(callback)
+    nextPage(getRecordsCallback, typeOfRecords)
     {
-        if (this._currentPage * this._maxCustomersOnPage < this._customersCount)
+        if (this._currentPage * this._maxRecords < this._recordsCount)
         {
             this._currentPage += 1;
             this._currentPageHtmlElem.innerHTML = this._currentPage;
-            callback(this._currentPage);
+            getRecordsCallback(typeOfRecords, this._currentPage);
         }
     }
-    previousPage(callback)
+    previousPage(getRecordsCallback, typeOfRecords)
     {
         if (this._currentPage > 1)
         {
             this._currentPage -= 1;
             this._currentPageHtmlElem.innerHTML = this._currentPage;
-            callback(this._currentPage);
+            getRecordsCallback(typeOfRecords, this._currentPage);
         }
     }
 }
