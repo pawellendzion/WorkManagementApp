@@ -13,26 +13,29 @@
     
     <title>Work Manage App</title>
 </head>
-<body onload="highlightMenu('customers'); getRecords('customers', 1); getRecordsCount('customers')">
+<body onload="highlightMenu('employees'); getRecords('employees', 1); getRecordsCount('employees')">
     <?php require_once "menu_panel.html" ?>
     <div class="wrapper">
         <div>
-            <p>Customers <span id="recordsCount"></span></p>
+            <p>Employees <span id="recordsCount"></span></p>
             <div class="table">
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 30%;">
-                                CUSTOMER NAME
+                            <th>
+                                EMPLOYEES NAME
                             </th>
-                            <th style="width: 35%;">
+                            <th>
                                 EMAIL
                             </th>
-                            <th style="width: 20%;">
+                            <th>
                                 PHONE
                             </th>
-                            <th style="width: 15%;">
-                                LAST CONTACT
+                            <th>
+                                EMPLOYMENT DATE
+                            </th>
+                            <th>
+                                SALARY
                             </th>
                         </tr>
                     </thead>
@@ -40,9 +43,9 @@
                 </table>
             </div>
             <div class="buttons">
-                <button onclick="customersRecordHandler.previousPage(getRecords, 'customers');"><</button>
+                <button onclick="employeesListHandler.previousPage(getRecords, 'employees');"><</button>
                 <span id="currentPage"></span>/<span id="recordsPages"></span>
-                <button onclick="customersRecordHandler.nextPage(getRecords, 'customers');">></button>
+                <button onclick="employeesListHandler.nextPage(getRecords, 'employees');">></button>
             </div>
         </div>
     </div>
@@ -50,11 +53,11 @@
     <script src="../scripts/get_data.js"></script>
     <script src="../scripts/record_page.js"></script>
     <script>
-        let customersRecordHandler;
+        let employeesListHandler;
         (async() => {
             while(recordsCount == null)
                 await new Promise(resolve => setTimeout(resolve, 200));
-            customersRecordHandler = new RecordPageHandler(recordsCount, maxRecords);
+            employeesListHandler = new RecordPageHandler(recordsCount, maxRecords);
         })();
     </script>
 </body>

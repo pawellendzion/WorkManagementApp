@@ -14,6 +14,14 @@ switch($_REQUEST["data"])
         $getData->customersCount();
         break;
 
+    case "employees":
+        $getData->employees($_REQUEST["from"], $_REQUEST["to"]);
+        break;
+        
+    case "employeesCount":
+        $getData->employeesCount();
+        break;
+
     default:
         echo __FILE__ . " error: wrong data parameter";
 }

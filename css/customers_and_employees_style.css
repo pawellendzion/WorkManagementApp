@@ -81,19 +81,3 @@ tr th:last-child {
 td {
     padding: 5px 0;
 }
-
-#name {
-    width: 30%;
-}
-
-#email {
-    width: 35%;
-}
-
-#phone {
-    width: 20%;
-}
-
-#last-contact {
-    width: 15%;
-}

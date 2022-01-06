@@ -22,6 +22,8 @@ class GetData
         $this->conn->close();
     }
 
+    #region customers methods
+
     function customers(int $from, int $to)
     {
         $sqlQuery = "SELECT * FROM customers LIMIT $from, $to";
@@ -48,4 +50,38 @@ class GetData
 
         print_r($result->fetch_row()[0]);
     }
+    
+    #endregion
+
+    #region employees methods
+
+    function employees(int $from, int $to)
+    {
+        $sqlQuery = "SELECT * FROM employees LIMIT $from, $to";
+        $result = $this->conn->query($sqlQuery);
+
+        if ($result->num_rows > 0)
+        {
+            while($row = $result->fetch_assoc()) 
+            {
+                echo "<tr>" .
+                    "<td>" . $row["Name"] . " " . $row["Lastname"] . "</td>" .
+                    "<td>" . $row["Email"] . "</td>" .
+                    "<td>" . $row["Phone"] . "</td>" .
+                    "<td>" . $row["Employment_date"] . "</td>" .
+                    "<td>" . $row["Salary"] . "</td>" . 
+                    "</tr>";
+            }
+        }
+    }
+
+    function employeesCount()
+    {
+        $sqlQuery = "SELECT COUNT(ID) FROM employees";
+        $result = $this->conn->query($sqlQuery);
+
+        print_r($result->fetch_row()[0]);
+    }
+    
+    #endregion
 }
