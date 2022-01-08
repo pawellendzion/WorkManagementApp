@@ -41,7 +41,7 @@
             </div>
             <div class="buttons">
                 <button onclick="customersRecordHandler.previousPage(getRecords, 'customers');"><</button>
-                <span id="currentPage"></span>/<span id="recordsPages"></span>
+                <span id="currentPage">1</span>/<span id="recordsPages"></span>
                 <button onclick="customersRecordHandler.nextPage(getRecords, 'customers');">></button>
             </div>
         </div>
