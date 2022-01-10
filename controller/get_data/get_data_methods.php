@@ -84,4 +84,50 @@ class GetData
     }
     
     #endregion
+
+    #region tasks methods
+
+    function tasks()
+    {
+        $sqlQuery = "SELECT tasks.ID, CONCAT(customers.Name, ' ', customers.Lastname) as customer, teams.Name as team_name, 
+                    CONCAT(employees.Name, ' ', employees.Lastname) as leader, Title, Deadline, Status
+                    FROM customers JOIN tasks ON tasks.ID_Customer = customers.ID
+                    LEFT JOIN teams ON tasks.ID_Team = teams.ID
+                    LEFT JOIN employees ON teams.Leader = employees.ID;";
+        
+        $result = $this->conn->query($sqlQuery);
+
+        if ($result->num_rows > 0)
+        {
+            $jsonResult = null;
+
+            $temp = function($status, $rowResult, &$funcResult)
+            {
+                $funcResult[$status][$rowResult["ID"]]["Title"] = $rowResult["Title"];
+                $funcResult[$status][$rowResult["ID"]]["Customer"] = $rowResult["customer"];
+                $funcResult[$status][$rowResult["ID"]]["Team_name"] = $rowResult["team_name"];
+                $funcResult[$status][$rowResult["ID"]]["Leader"] = $rowResult["leader"];
+                $funcResult[$status][$rowResult["ID"]]["Deadline"] = $rowResult["Deadline"];
+            };
+
+            while($row = $result->fetch_assoc()) 
+            {
+                switch($row["Status"])
+                {
+                    case "to do": 
+                        $temp("to-do", $row, $jsonResult);
+                        break;
+                    case "working on": 
+                        $temp("working-on", $row, $jsonResult);
+                        break;
+                    case "completed": 
+                        $temp("completed", $row, $jsonResult);
+                        break;
+                }
+            }
+            echo json_encode($jsonResult);
+        }
+    }
+
+    #endregion
 }

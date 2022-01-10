@@ -48,13 +48,36 @@
     box-sizing: border-box;
     border-bottom: 1px solid #7f8fa6;
     background-color: #dcdde1;
-    height: 35px;
+    min-height: 40px;
+    max-height: 40px;
     user-select: none;
+    overflow: hidden;
+    transition: 0.5s;
 }
 
-.wrapper div .task-block .body .elem:hover {
+.wrapper div .task-block .body .elem.expanded {
+    max-height: 200px;
+    background-color: #f5f6fa;   
+}
+
+.wrapper div .task-block .body .elem > div:first-child {
+    height: 40px;
+    text-align: center;
+}
+
+.wrapper div .task-block .body .elem > div:first-child:hover {
     cursor: pointer;
     background-color: #f5f6fa;
+}
+
+.wrapper div .task-block .body .elem > div:last-child {
+    padding: 10px 10px;
+    box-sizing: border-box;
+    border-top: 2px dotted black;
+}
+
+.wrapper div .task-block .body .elem > div:last-child tr td:first-child {
+    width: 50%;
 }
 
 .wrapper div .task-block .body .elem:last-child {

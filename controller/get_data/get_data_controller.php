@@ -21,6 +21,10 @@ switch($_REQUEST["data"])
     case "employeesCount":
         $getData->employeesCount();
         break;
+    
+    case "tasks":
+        $getData->tasks();
+        break;
 
     default:
         echo __FILE__ . " error: wrong data parameter";
