@@ -23,7 +23,7 @@ function getRecords(typeOfRecords, pageNum)
     let to = pageNum * maxRecords;
     let from = to - maxRecords;
 
-    http.open("GET", `../controller/get_data/get_data_controller.php?data=${typeOfRecords}&from=${from}&to=${to}`);
+    http.open("GET", `../controller/get_data/get_data_controller.php/${typeOfRecords}?from=${from}&to=${to}`);
     http.send();
 }
 
@@ -46,8 +46,8 @@ function getRecordsCount(typeOfRecords)
                 Math.ceil(parseFloat(this.responseText)/parseFloat(maxRecords));
         }
     }
-
-    http.open("GET", `../controller/get_data//get_data_controller.php?data=${typeOfRecords}Count`);
+    
+    http.open("GET", `../controller/get_data/get_data_controller.php/${typeOfRecords}/count`);
     http.send();
 
 }
@@ -69,7 +69,7 @@ function getList(ofWhat, typeOfRecords, callback)
     }
 
     http.open("GET", 
-        `../controller/get_data//get_data_controller.php?data=list&ofWhat=${ofWhat}&type=${typeOfRecords}`);
+        `../controller/get_data//get_data_controller.php/list?ofWhat=${ofWhat}&type=${typeOfRecords}`);
     http.send();
 }
 
@@ -138,7 +138,7 @@ function getTasks()
         }
     }
 
-    http.open("GET", `../controller/get_data//get_data_controller.php?data=tasks`);
+    http.open("GET", `../controller/get_data/get_data_controller.php/tasks`);
     http.send();
 }
 
@@ -153,7 +153,7 @@ function getTask(id, callback)
         }
     }
 
-    http.open("GET", `../controller/get_data//get_data_controller.php?data=task&id=${id}`);
+    http.open("GET", `../controller/get_data/get_data_controller.php/task?id=${id}`);
     http.send();
 }
 
@@ -172,6 +172,6 @@ function getLeader_Team(type, id, callback)
         }
     }
 
-    http.open("GET", `../controller/get_data//get_data_controller.php?data=leader-team&id=${id}&type=${type}`);
+    http.open("GET", `../controller/get_data/get_data_controller.php/leader-team?id=${id}&type=${type}`);
     http.send();
 }

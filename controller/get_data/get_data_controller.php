@@ -1,28 +1,46 @@
 <?php namespace Controller\get_data;
-
 include "get_data_methods.php";
+
+use function Controller\getEndpoints;
+include "../auxiliary_functions.php";
+
 
 $getData = new GetData();
 
-$url = $_SERVER["REQUEST_URI"];
-$action = substr($url, strrpos($url, '/') + 1);
+$endpoints = getEndpoints($_SERVER["REQUEST_URI"], basename(__FILE__));
 
-switch($_REQUEST["data"])
+switch($endpoints[0])
 {
     case "customers":
-        $getData->customers($_REQUEST["from"], $_REQUEST["to"]);
-        break;
-
-    case "customersCount":
-        $getData->customersCount();
+        switch(@$endpoints[1])
+        {
+            case "count":
+                $getData->customersCount();
+                break;
+            
+            case "":
+                $getData->customers($_REQUEST["from"], $_REQUEST["to"]);
+                break;
+            
+            default:
+                echo "Data cannot be access (customers) ".__FILE__;
+        }
         break;
 
     case "employees":
-        $getData->employees($_REQUEST["from"], $_REQUEST["to"]);
-        break;
-        
-    case "employeesCount":
-        $getData->employeesCount();
+        switch(@$endpoints[1])
+        {
+            case "count":
+                $getData->employeesCount();
+                break;
+                
+            case "":
+                $getData->employees($_REQUEST["from"], $_REQUEST["to"]);
+                break;
+
+            default:
+                echo "Data cannot be access (employees) ".__FILE__;
+        }
         break;
     
     case "tasks":
