@@ -129,5 +129,77 @@ class GetData
         }
     }
 
+    function task($id)
+    {
+        $sqlQuery = "SELECT tasks.ID, CONCAT(customers.Name, ' ', customers.Lastname) as customer, teams.Name as team_name, 
+                    CONCAT(employees.Name, ' ', employees.Lastname) as leader, Title, Deadline, Status
+                    FROM customers JOIN tasks ON tasks.ID_Customer = customers.ID
+                    LEFT JOIN teams ON tasks.ID_Team = teams.ID
+                    LEFT JOIN employees ON teams.Leader = employees.ID
+                    WHERE tasks.ID = $id;";
+
+        $result = $this->conn->query($sqlQuery);
+
+        if ($result->num_rows > 0)
+        {
+            $row = $result->fetch_assoc();
+
+            $jsonResult["ID"] = $row["ID"];
+            $jsonResult["Status"] = $row["Status"];
+            $jsonResult["Customer"] = $row["customer"];
+            $jsonResult["Team"] = $row["team_name"];
+            $jsonResult["Leader"] = $row["leader"];
+            $jsonResult["Title"] = $row["Title"];
+            $jsonResult["Deadline"] = $row["Deadline"];
+
+            echo json_encode($jsonResult);
+        }
+    }
+
     #endregion
+
+    function listOf($ofWhat, $type)
+    {
+        $getLeaders = "";
+        if ($type == "leaders")
+        {
+            $type = "employees";
+            $getLeaders = "JOIN teams ON $type.ID = Leader";
+        }
+        
+        if ($ofWhat == "Fullname")
+            $ofWhat = "CONCAT($type.Name, ' ', $type.Lastname)";
+
+        $sqlQuery = "SELECT $type.ID, $ofWhat FROM $type $getLeaders";
+        $result = $this->conn->query($sqlQuery);
+
+        $jsonResult = null;
+
+        if ($result->num_rows > 0)
+            while ($row = $result->fetch_array())
+                $jsonResult[$row[0]] = $row[1];
+
+        echo json_encode($jsonResult);
+    }
+
+    function leaderTeam($type, $id)
+    {
+        $where = "";
+        if ($type == "team")
+            $where = "WHERE teams.ID = $id";
+        else
+            $where = "WHERE employees.ID = $id";
+
+        $sqlQuery = "SELECT teams.ID, employees.ID
+                    FROM teams JOIN employees ON Leader = employees.ID $where;";
+        
+        $result = $this->conn->query($sqlQuery);
+
+        $row = $result->fetch_array();
+
+        $jsonResult["team_ID"] = $row[0];
+        $jsonResult["leader_ID"] = $row[1];
+
+        echo json_encode($jsonResult);
+    }
 }

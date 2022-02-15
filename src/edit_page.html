@@ -1,0 +1,31 @@
+<div id="edit-wrapper" style="display: none">
+    <div id="edit-main-page">
+        <div id = "edit-title"></div>
+        <form id="edit-form" onsubmit="return false">
+            <table>
+                <tr>
+                    <td>Customer</td>
+                    <td>Leader</td>
+                    <td>Team</td>
+                </tr>
+                <tr>
+                    <td><select name="customer" id="edit-customer-select"></select></td>
+                    <td><select name="leader" onchange="matchLeaderTeam('leader', 'team', this.value)" id="edit-leader-select"></select></td>
+                    <td><select name="team" onchange="matchLeaderTeam('team', 'leader', this.value)" id="edit-team-select"></select></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Status</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><select name="status" id="edit-status-select"></select></td>
+                    <td></td>
+                </tr>
+            </table>
+            <input type="submit" value="SAVE" onclick="saveData(); toggleEditPage()">
+            <button onclick="toggleEditPage()">CANCEL</button>
+        </form>
+    </div>
+</div>

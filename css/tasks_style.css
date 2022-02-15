@@ -77,7 +77,7 @@
 }
 
 .wrapper div .task-block .body .elem > div:last-child tr td:first-child {
-    width: 50%;
+    width: fit-content;
 }
 
 .wrapper div .task-block .body .elem:last-child {
@@ -98,4 +98,14 @@
 .wrapper div .task-block .body .new:hover {
     cursor: pointer;
     background-color: #e3e4e7;
+}
+
+.edit {
+    min-width: fit-content;
+    width: 20%;
+    background-color: #00a8ff;
+    color: white;
+    font-weight: bold;
+    padding: 4px;
+    cursor: pointer;
 }

@@ -1,0 +1,35 @@
+#edit-wrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+}
+
+#edit-wrapper #edit-main-page {
+    background-color: white;
+    margin: 5% auto 10%;
+    width: 40%;
+    height: 85%;
+    border-radius: 20px;
+    padding: 10px 5px;
+}
+
+#edit-wrapper #edit-main-page #edit-title {
+    height: 10%;
+    border-bottom: 1px solid black;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit-wrapper #edit-main-page table {
+    text-align: center;
+    width: 100%;
+    margin: 20px;
+}
+
+#edit-wrapper #edit-main-page table tr td {
+    width: 33%;
+}
