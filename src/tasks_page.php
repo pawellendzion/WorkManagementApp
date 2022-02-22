@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/tasks_style.css">
     <link rel="stylesheet" href="../css/edit_style.css">
     
-    <title>Work Manage App</title>
+    <title>Work Management App</title>
 </head>
 <body onload="highlightMenu('tasks'); getTasks()">
     <?php require_once "menu_panel.html" ?>

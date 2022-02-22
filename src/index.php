@@ -6,13 +6,13 @@
     <?php require_once "global_style_links.html" ?>
     <link rel="stylesheet" href="../css/home_page_style.css">
     
-    <title>Work Manage App</title>
+    <title>Work Management App</title>
 </head>
 <body onload="highlightMenu('home')">
     <?php require_once "menu_panel.html" ?>
     <div class="wrapper">
         <div class="welcome-box">
-            <p>Welcome to <br /> Work Manage App</p>
+            <p>Welcome to <br /> Work Management App</p>
         </div>
         <div class="info">
             <div class="inline">

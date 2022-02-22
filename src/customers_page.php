@@ -11,7 +11,7 @@
         const maxRecords = 15;
     </script>
     
-    <title>Work Manage App</title>
+    <title>Work Management App</title>
 </head>
 <body onload="highlightMenu('customers'); getRecords('customers', 1); getRecordsCount('customers')">
     <?php require_once "menu_panel.html" ?>
