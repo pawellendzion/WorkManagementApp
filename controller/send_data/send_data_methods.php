@@ -25,8 +25,10 @@ class SendData
     function task($json)
     {
         $sqlQuery = "UPDATE tasks SET ".
+                    "Title = '$json->title', ".
                     "ID_Customer = $json->customer, ".
                     "ID_Team = ". ($json->team == 0 ? "NULL" : $json->team) .", ".
+                    "Deadline = '$json->deadline', ".
                     "Status = '$json->status' ".
                     "WHERE ID = $json->id;";
 
@@ -34,6 +36,5 @@ class SendData
         
         if ($this->conn->errno)
             echo "Some error occure when trying to save data";
-
     }
 }

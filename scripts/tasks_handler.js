@@ -38,7 +38,7 @@ function toggleEditPage(id)
 
 function showDataOfCurrentTask(json)
 {
-    document.querySelector("#edit-title").innerHTML = json["Title"];
+    document.querySelector("#edit-title").value = json["Title"];
 
     const fillSelect = function (json, args)
     {
@@ -98,8 +98,10 @@ function matchLeaderTeam(type, whereMatch, id)
 function saveData()
 {
     const form = document.querySelector("#edit-form");
+    const title = form["title"].value;
     const customer = form["customer"].value;
     const team = form["team"].value;
+    const deadline = form["deadline"].value;
     const status = form["status"].value;
     const id = parseInt(idOfCurrnetTask);
 
@@ -113,7 +115,7 @@ function saveData()
         }
     }
 
-    const josnToSend = {"id": id, "customer": customer, "team": team, "status": status};
+    const josnToSend = {"id": id, "title": title, "customer": customer, "team": team, "deadline": deadline, "status": status};
     http.open("POST", "../controller/send_data/send_data_controller.php/task");
     http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     http.send(JSON.stringify(josnToSend));

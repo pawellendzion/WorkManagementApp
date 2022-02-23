@@ -120,6 +120,7 @@ function getTasks()
                     
                     but1.textContent = "EDIT";
                     but1.className = "edit";
+                    but1.setAttribute("tabindex", -1);
                     but1.addEventListener("click", function(){
                         toggleEditPage(id);
                     });

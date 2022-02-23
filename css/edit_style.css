@@ -15,13 +15,15 @@
     padding: 10px 5px;
 }
 
-#edit-wrapper #edit-main-page #edit-title {
-    height: 10%;
-    border-bottom: 1px solid black;
-    font-size: 2em;
+#edit-wrapper #edit-main-page #edit-title-div {
     display: flex;
     justify-content: center;
-    align-items: center;
+}
+
+#edit-wrapper #edit-main-page #edit-title-div #edit-title {
+    border-bottom: 1px solid black;
+    font-size: 2em;
+    text-align: center;
 }
 
 #edit-wrapper #edit-main-page table {
