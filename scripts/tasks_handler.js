@@ -110,7 +110,6 @@ function saveData()
     {
         if (this.readyState == 4 && this.status == 200)
         {
-            alert("Data uploaded!\nReload page to see changes.");
             console.log(this.responseText);
         }
     }

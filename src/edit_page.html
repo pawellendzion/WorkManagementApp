@@ -1,33 +1,35 @@
 <div id="edit-wrapper" style="display: none">
     <div id="edit-main-page">
-        <form id="edit-form" onsubmit="return false">
-            <div id="edit-title-div">
-                <input name="title" id="edit-title"></input>
-            </div>
-            <table>
-                <tr>
-                    <td>Customer</td>
-                    <td>Leader</td>
-                    <td>Team</td>
-                </tr>
-                <tr>
-                    <td><select name="customer" id="edit-customer-select"></select></td>
-                    <td><select name="leader" onchange="matchLeaderTeam('leader', 'team', this.value)" id="edit-leader-select"></select></td>
-                    <td><select name="team" onchange="matchLeaderTeam('team', 'leader', this.value)" id="edit-team-select"></select></td>
-                </tr>
-                <tr>
-                    <td>Deadline</td>
-                    <td>Status</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input name="deadline" type="date"></td>
-                    <td><select name="status" id="edit-status-select"></select></td>
-                    <td></td>
-                </tr>
-            </table>
-            <input type="submit" value="SAVE" onclick="saveData(); toggleEditPage()">
-            <input type="button" value="CANCEL" onclick="toggleEditPage()">
-        </form>
+        <div>
+            <form id="edit-form" action="#">
+                <div id="edit-title-div">
+                    <input name="title" id="edit-title"></input>
+                </div>
+                <table>
+                    <tr>
+                        <td>Customer:</td>
+                        <td><select name="customer" id="edit-customer-select"></select></td>
+                    </tr>
+                    <tr>
+                        <td>Leader:</td>
+                        <td><select name="leader" onchange="matchLeaderTeam('leader', 'team', this.value)" id="edit-leader-select"></select></td>
+                    </tr>
+                    <tr>
+                        <td>Team:</td>
+                        <td><select name="team" onchange="matchLeaderTeam('team', 'leader', this.value)" id="edit-team-select"></select></td>
+                    </tr>
+                    <tr>
+                        <td>Deadline:</td>
+                        <td><input name="deadline" type="date"></td>
+                    </tr>
+                    <tr>
+                        <td>Status:</td>
+                        <td><select name="status" id="edit-status-select"></select></td>
+                    </tr>
+                </table>
+                <input type="submit" class="edit-button submit" value="SAVE" onclick="saveData(); toggleEditPage()"><!--
+                --><input type="button" class="edit-button cancel" value="CANCEL" onclick="toggleEditPage()">
+            </form>
+        </div>
     </div>
 </div>
