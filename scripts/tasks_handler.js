@@ -39,6 +39,7 @@ function toggleEditPage(id)
 function showDataOfCurrentTask(json)
 {
     document.querySelector("#edit-title").value = json["Title"];
+    document.querySelector("#edit-deadline").value = json["Deadline"];
 
     const fillSelect = function (json, args)
     {
