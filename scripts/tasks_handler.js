@@ -16,11 +16,6 @@ function addNew()
         "Deadline": date
     };
     showDataOfCurrentTask(json);
-
-    const toDoPanel = document.getElementById("to-do");
-    let div = document.createElement("div");
-    div.className = "elem";
-    toDoPanel.appendChild(div);
 }
 
 function expand(obj)
