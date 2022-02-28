@@ -22,7 +22,7 @@ class SendData
         $this->conn->close();
     }
 
-    function task($json)
+    function taskUpdate($json)
     {
         $sqlQuery = "UPDATE tasks SET ".
                     "Title = '$json->title', ".
@@ -35,6 +35,18 @@ class SendData
         $this->conn->query($sqlQuery);
         
         if ($this->conn->errno)
-            echo "Some error occure when trying to save data";
+            echo "Some error occure when trying to update data";
+    }
+
+    function taskInsert($json)
+    {
+        $sqlQuery = "INSERT INTO tasks (Title, ID_Customer, ID_Team, Deadline, Status)".
+                    "VALUES ('$json->title', $json->customer, "
+                    . ($json->team == 0 ? "NULL" : $json->team) .", '$json->deadline', '$json->status')";
+
+        $this->conn->query($sqlQuery);
+        
+        if ($this->conn->errno)
+            echo "Some error occure when trying to insert data\n".$this->conn->error;
     }
 }

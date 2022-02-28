@@ -1,5 +1,22 @@
 function addNew()
 {
+    toggleEditPage(0);
+
+    let today = new Date();
+    // add 0 before number if it's length is equal 1
+    let currentMonth = ((today.getMonth()+1) < 10 ? "0" : "") + (today.getMonth()+1);
+    let date = today.getFullYear()+'-'+(currentMonth)+'-'+today.getDate();
+
+    let json = {
+        "Status": "to do",
+        "Customer": null,
+        "Team": null,
+        "Leader": null,
+        "Title": null,
+        "Deadline": date
+    };
+    showDataOfCurrentTask(json);
+
     const toDoPanel = document.getElementById("to-do");
     let div = document.createElement("div");
     div.className = "elem";
@@ -27,7 +44,8 @@ function toggleEditPage(id)
     {
         idOfCurrnetTask = id; 
         editPage.style.display = "block";
-        getTask(parseInt(id), showDataOfCurrentTask);
+        if (id > 0)
+            getTask(parseInt(id), showDataOfCurrentTask);
     }
     else
     {
@@ -49,7 +67,7 @@ function showDataOfCurrentTask(json)
         if (args[3] != "status")
         {
             let optElem = document.createElement("option");
-                optElem.value = 0;
+                optElem.value = "";
                 optElem.innerHTML = "Not assign";
                 optElem.selected = true;
                 select.appendChild(optElem);
@@ -76,7 +94,7 @@ function showDataOfCurrentTask(json)
     getList("Name", "teams", fillSelect, "team", json["Team"]);
     // nulls are placeholders becouse when we invoke it by getList it gain 3 aditional args
     // and fiilSelect is prepare for this case
-    fillSelect({1: "to do", 2: "working on", 3: "complete"}, [null, null, null, "status", json["Status"]]);
+    fillSelect({1: "to do", 2: "working on", 3: "completed"}, [null, null, null, "status", json["Status"]]);
 }
 
 function matchLeaderTeam(type, whereMatch, id)
@@ -116,7 +134,25 @@ function saveData()
     }
 
     const josnToSend = {"id": id, "title": title, "customer": customer, "team": team, "deadline": deadline, "status": status};
-    http.open("POST", "../controller/send_data/send_data_controller.php/task");
+    if (id == 0)
+        http.open("POST", "../controller/send_data/send_data_controller.php/task/insert");
+    else
+        http.open("POST", "../controller/send_data/send_data_controller.php/task/update");
     http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     http.send(JSON.stringify(josnToSend));
+}
+
+function checkRequirementsAndSend()
+{
+    const form = document.querySelector("#edit-form");
+    let valid = false;
+
+    if (form["title"].value && form["customer"].value)
+        valid = true;
+    
+    if (valid)
+    {
+        saveData(); 
+        toggleEditPage();
+    }
 }

@@ -13,7 +13,19 @@ $sendData = new SendData();
 switch($endpoints[0])
 {
     case "task":
-        $sendData->task($json);
+        switch($endpoints[1])
+        {
+            case "update":
+                $sendData->taskUpdate($json);
+                break;
+            
+            case "insert":
+                $sendData->taskInsert($json);
+                break;
+            
+            default:
+                echo "Data cannot be send (task) ".__FILE__;
+        }
         break;
     
     default:
