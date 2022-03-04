@@ -35,7 +35,7 @@ class SendData
         $this->conn->query($sqlQuery);
         
         if ($this->conn->errno)
-            echo "Some error occure when trying to update data";
+            echo "Some error has occure when trying to update data";
     }
 
     function taskInsert($json)
@@ -47,6 +47,16 @@ class SendData
         $this->conn->query($sqlQuery);
         
         if ($this->conn->errno)
-            echo "Some error occure when trying to insert data\n".$this->conn->error;
+            echo "Some error has occure when trying to insert data\n".$this->conn->error;
+    }
+
+    function taskDelete($id)
+    {
+        $sqlQuery = "DELETE FROM tasks WHERE ID=$id";
+
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+            echo "Some error has occure when trying to delete task\n".$this->conn->error;
     }
 }

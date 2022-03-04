@@ -117,6 +117,7 @@ function getTasks()
                     // buttons
                     let div4 = document.createElement("div");
                     let but1 = document.createElement("button");
+                    let but2 = document.createElement("button");
                     
                     but1.textContent = "EDIT";
                     but1.className = "edit";
@@ -125,8 +126,17 @@ function getTasks()
                         toggleEditPage(id);
                     });
 
+                    but2.textContent = "DELETE";
+                    but2.className = "delete";
+                    but2.setAttribute("tabindex", -1);
+                    but2.addEventListener("click", function(){
+                        deleteTask(id);
+                        div.style.display = "none";
+                    });
+
                     div4.appendChild(but1);
-                    
+                    div4.appendChild(but2);
+
                     divOfDivs.appendChild(div4);
                     divOfDivs.appendChild(div3);
                     div.appendChild(divOfDivs);

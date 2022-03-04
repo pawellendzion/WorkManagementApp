@@ -23,6 +23,10 @@ switch($endpoints[0])
                 $sendData->taskInsert($json);
                 break;
             
+            case "delete":
+                $sendData->taskDelete($_REQUEST["id"]);
+                break;
+
             default:
                 echo "Data cannot be send (task) ".__FILE__;
         }

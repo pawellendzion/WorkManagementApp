@@ -100,12 +100,19 @@
     background-color: #e3e4e7;
 }
 
-.edit {
+.elem button {
     min-width: fit-content;
-    width: 20%;
-    background-color: #00a8ff;
-    color: white;
+    width: 30%;
     font-weight: bold;
     padding: 4px;
     cursor: pointer;
+    margin: 0 5px 0 0;
+}
+.edit {
+    background-color: #00a8ff;
+    color: white;
+}
+.delete {
+    background-color: #ff1818;
+    color: white;
 }

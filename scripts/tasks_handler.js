@@ -151,3 +151,18 @@ function checkRequirementsAndSend()
         toggleEditPage();
     }
 }
+
+function deleteTask(id)
+{
+    const http = new XMLHttpRequest();
+    http.onreadystatechange = function()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            console.log(this.responseText);
+        }
+    }
+
+    http.open("POST", "../controller/send_data/send_data_controller.php/task/delete?id="+id)
+    http.send();
+}
