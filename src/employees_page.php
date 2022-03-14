@@ -15,6 +15,8 @@
 </head>
 <body onload="highlightMenu('employees'); getRecords('employees', 1); getRecordsCount('employees')">
     <?php require_once "menu_panel.html" ?>
+    <?php require_once "person_info_page.html" ?>
+
     <div class="wrapper">
         <div>
             <p>Employees <span id="recordsCount"></span></p>
@@ -35,7 +37,7 @@
                                 EMPLOYMENT DATE
                             </th>
                             <th>
-                                SALARY
+                                TEAM
                             </th>
                         </tr>
                     </thead>
@@ -52,6 +54,7 @@
 
     <script src="../scripts/get_data.js"></script>
     <script src="../scripts/record_page.js"></script>
+    <script src="../scripts/person_page_handler.js"></script>
     <script>
         let employeesListHandler;
         (async() => {

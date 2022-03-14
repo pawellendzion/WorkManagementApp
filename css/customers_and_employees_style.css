@@ -81,3 +81,129 @@ tr th:last-child {
 td {
     padding: 5px 0;
 }
+
+tr.person {
+    cursor: pointer;
+}
+
+tr.person:hover {
+    background-color: #2fa8e9;
+}
+
+/* person info page */
+#wrapper-person-page {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    display: none;
+}
+
+#wrapper-person-page #container {
+    margin: 3% 30%;
+    background-color: #0097e6;
+    width: auto;
+    height: fit-content;
+    max-height: 90%;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+#wrapper-person-page #container input {
+    outline: none;
+}
+
+#wrapper-person-page #container input.editable {
+    border: 1px solid #fff;
+}
+
+#wrapper-person-page #container #person-name-div {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    box-shadow: 0 1px 10px 1px;
+    height: 7%;
+    margin-bottom: 3%;
+}
+
+#wrapper-person-page #container #person-name-div #person-name {
+    font-size: 2em;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+#wrapper-person-page #container #person-infos {
+    width: fit-content;
+    margin: auto;
+}
+
+#wrapper-person-page #container #person-infos #infos {
+    border-collapse: collapse;
+}
+
+#wrapper-person-page #container #person-infos tr {
+    border-bottom: 1px solid black;
+}
+
+#wrapper-person-page #container #person-infos .info-title {
+    box-shadow: 0 1px 5px 1px black;
+    background-color: #00a8ff;
+    font-weight: bold;
+}
+
+#wrapper-person-page #container #person-infos tr td:first-child {
+    color: white;
+    text-shadow: 1px 1px 5px black;
+    padding-right: 5px;
+}
+
+#wrapper-person-page #container #buttons {
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+}
+
+#wrapper-person-page #container #buttons input {
+    width: 50%;
+    height: 100%;
+    border: none;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#edit {
+    background-color: #027bbd;
+    color: #0e384e;
+}
+
+#edit:hover {
+    background-color: rgb(0, 134, 206);
+}
+
+#close {
+    background-color: #c23616;
+    color: #5e1b0c;
+}
+
+#close:hover {
+    background-color: #e84118;
+}
+
+#save {
+    background-color: #44bd32;
+    color: #1e5316;
+}
+
+#save:hover {
+    background-color: #4cd137;
+}
+
+#cancel {
+    background-color: #c23616;
+    color: #5e1b0c;
+}
+
+#cancel:hover {
+    background-color: #e84118;
+}

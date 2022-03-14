@@ -186,3 +186,18 @@ function getLeader_Team(type, id, callback)
     http.open("GET", `../controller/get_data/get_data_controller.php/leader-team?id=${id}&type=${type}`);
     http.send();
 }
+
+function getPersonInfo(type, id, callback)
+{
+    const http = new XMLHttpRequest();
+    
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            callback(JSON.parse(this.responseText));
+        }
+    }
+
+    http.open("GET", `../controller/get_data/get_data_controller.php/person?id=${id}&type=${type}`);
+    http.send();
+}

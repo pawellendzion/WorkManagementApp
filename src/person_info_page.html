@@ -1,0 +1,18 @@
+<div id="wrapper-person-page" style="display: none">
+    <div id="container">
+        <form id="person-edit-form" action="#">
+            <div id="person-name-div">
+                <input id="person-name" class="editable" placeholder="Fullname" readonly>
+            </div>
+            <div id="person-infos">
+                <table id="infos"></table>
+            </div>
+            <div id="buttons">
+                <input id="edit" value="EDIT" type="button" onclick="PersonPageButtonsHandler.editAction()"><!--
+                --><input id="save" value="SAVE" type="submit" onclick="PersonPageButtonsHandler.saveAction()" style="display: none;"><!--
+                --><input id="close" value="CLOSE" type="button" onclick="PersonPageButtonsHandler.closeAction()"><!--
+                --><input id="cancel" value="CANCEL" type="button" onclick="PersonPageButtonsHandler.cancelAction()" style="display: none;">
+            </div>
+        </form>
+    </div>
+</div>

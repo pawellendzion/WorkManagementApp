@@ -58,7 +58,11 @@ switch($endpoints[0])
     case "leader-team":
         $getData->leaderTeam($_REQUEST["type"], $_REQUEST["id"]);
         break;  
-
+    
+    case "person":
+        $getData->getPerson($_REQUEST["type"], $_REQUEST["id"]);
+        break;
+    
     default:
         echo __FILE__ . " error: wrong data parameter";
 }

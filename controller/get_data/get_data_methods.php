@@ -33,7 +33,9 @@ class GetData
         {
             while($row = $result->fetch_assoc()) 
             {
-                echo "<tr>" .
+                echo "<tr onclick=\"PersonPageHandler.toggle('customer',". $row["ID"] .")\"".
+                    "class=\"person\" id=\"employee-". $row["ID"] ."\">" .
+
                     "<td>" . $row["Name"] . " " . $row["Lastname"] . "</td>" .
                     "<td>" . $row["Email"] . "</td>" .
                     "<td>" . $row["Phone"] . "</td>" .
@@ -57,19 +59,22 @@ class GetData
 
     function employees(int $from, int $to)
     {
-        $sqlQuery = "SELECT * FROM employees LIMIT $from, $to";
+        $sqlQuery = "SELECT employees.ID, employees.Name, Lastname, Email, Phone, Employment_date, teams.Name as 'TeamName'
+                     FROM employees JOIN teams ON Team = teams.ID LIMIT $from, $to";
         $result = $this->conn->query($sqlQuery);
 
         if ($result->num_rows > 0)
         {
             while($row = $result->fetch_assoc()) 
             {
-                echo "<tr>" .
+                echo "<tr onclick=\"PersonPageHandler.toggle('employee',". $row["ID"] .")\"".
+                    "class=\"person\" id=\"employee-". $row["ID"] ."\">" .
+                    
                     "<td>" . $row["Name"] . " " . $row["Lastname"] . "</td>" .
                     "<td>" . $row["Email"] . "</td>" .
                     "<td>" . $row["Phone"] . "</td>" .
                     "<td>" . $row["Employment_date"] . "</td>" .
-                    "<td>" . $row["Salary"] . "</td>" . 
+                    "<td>" . $row["TeamName"] . "</td>" . 
                     "</tr>";
             }
         }
@@ -199,6 +204,27 @@ class GetData
 
         $jsonResult["team_ID"] = $row[0];
         $jsonResult["leader_ID"] = $row[1];
+
+        echo json_encode($jsonResult);
+    }
+
+    function getPerson($type, $id)
+    {
+        if ($type == "employee")
+        {
+            $sqlQuery = "SELECT employees.ID, employees.Name, Lastname, Email, Phone,
+                         Employment_date as 'Employment date', teams.Name as 'Team name'
+                         FROM employees JOIN teams ON Team = teams.ID";
+        }
+        else
+            $sqlQuery = "SELECT * FROM $type"."s WHERE ID = $id";
+
+        $result = $this->conn->query($sqlQuery)->fetch_assoc();
+
+        foreach($result as $key => $value)
+        {
+            $jsonResult[$key] = $value;
+        }
 
         echo json_encode($jsonResult);
     }
