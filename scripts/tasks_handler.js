@@ -62,7 +62,7 @@ function showDataOfCurrentTask(json)
         if (args[3] != "status")
         {
             let optElem = document.createElement("option");
-                optElem.value = "";
+                optElem.value = "NULL";
                 optElem.innerHTML = "Not assign";
                 optElem.selected = true;
                 select.appendChild(optElem);
@@ -95,9 +95,9 @@ function showDataOfCurrentTask(json)
 function matchLeaderTeam(type, whereMatch, id)
 {
     const DOMElem = document.querySelector("#edit-" + whereMatch + "-select");
-    if (document.querySelector("#edit-" + type + "-select").value == 0)
+    if (document.querySelector("#edit-" + type + "-select").value == "NULL")
     {
-        DOMElem.value = 0;
+        DOMElem.value = "NULL";
         return;
     }
     

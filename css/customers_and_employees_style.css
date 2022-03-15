@@ -207,3 +207,9 @@ tr.person:hover {
 #cancel:hover {
     background-color: #e84118;
 }
+
+select:disabled {
+    opacity: 1;
+    color: inherit;
+    border-color: 1px solid #fff;
+}

@@ -31,7 +31,49 @@ switch($endpoints[0])
                 echo "Data cannot be send (task) ".__FILE__;
         }
         break;
-    
+
+    case "employee":
+        switch($endpoints[1])
+        {
+            case "update":
+                $sendData->employeeUpdate($json, $_REQUEST["id"]);
+                break;
+            
+            case "insert":
+                $sendData->employeeInsert($json);
+                break;
+            
+            case "delete":
+                $sendData->employeeDelete($_REQUEST["id"]);
+                break;
+
+            default:
+                echo "Data cannot be send (employee) ".__FILE__;
+        }
+        break;
+
+    case "customer":
+        switch($endpoints[1])
+        {
+            case "update":
+                $sendData->customerUpdate($json, $_REQUEST["id"]);
+                break;
+            
+            case "insert":
+                $sendData->customerInsert($json);
+                break;
+            
+            case "delete":
+                $sendData->customerDelete($_REQUEST["id"]);
+                break;
+
+            default:
+                echo "Data cannot be send (customer) ".__FILE__;
+        }
+        break;
+
     default:
+        echo __FILE__ . " error: wrong data parameter\n\r";
+        print_r($endpoints);
         break;
 }

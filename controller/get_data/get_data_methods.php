@@ -60,7 +60,7 @@ class GetData
     function employees(int $from, int $to)
     {
         $sqlQuery = "SELECT employees.ID, employees.Name, Lastname, Email, Phone, Employment_date, teams.Name as 'TeamName'
-                     FROM employees JOIN teams ON Team = teams.ID LIMIT $from, $to";
+                     FROM employees LEFT JOIN teams ON Team = teams.ID LIMIT $from, $to";
         $result = $this->conn->query($sqlQuery);
 
         if ($result->num_rows > 0)
@@ -213,8 +213,8 @@ class GetData
         if ($type == "employee")
         {
             $sqlQuery = "SELECT employees.ID, employees.Name, Lastname, Email, Phone,
-                         Employment_date as 'Employment date', teams.Name as 'Team name'
-                         FROM employees JOIN teams ON Team = teams.ID";
+                         Employment_date as 'Employment date', Salary, teams.Name as 'Team name'
+                         FROM employees LEFT JOIN teams ON Team = teams.ID WHERE employees.ID = $id";
         }
         else
             $sqlQuery = "SELECT * FROM $type"."s WHERE ID = $id";

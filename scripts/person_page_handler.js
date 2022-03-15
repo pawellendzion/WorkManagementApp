@@ -33,7 +33,7 @@ class PersonPageHandler {
             const tr = document.createElement("tr");
 
             let td = document.createElement("td");
-            td.innerHTML = label;
+            td.innerHTML = label + ":";
             if (colspan) 
             {
                 td.colSpan = 2;
@@ -47,15 +47,56 @@ class PersonPageHandler {
                 td = document.createElement("td");
                 
                 let input = document.createElement("input");
-                input.readOnly = true;
-                input.setAttribute("value", value);
-                input.classList.add("editable");
-
                 let pattern = /date|contact/i;
                 if (label.match(pattern))
                 {
                     input.type = "date";
                 }
+                else if (label.match(/phone/i))
+                {
+                    input.pattern = "[0-9]{3}-[0-9]{3}-[0-9]{3}";
+                    input.placeholder = "XXX-XXX-XXX";
+                }
+                else if (label.match(/salary/i))
+                {
+                    input.type = "number";
+                }
+
+                if (label.match(/team/i))
+                {
+                    input = document.createElement("select");
+                    
+                    const fillSelect = function(json2){
+                        let opt = document.createElement("option");
+                        opt.value = "NULL";
+                        input.setAttribute("value", "NULL");
+                        opt.innerHTML = "Not assign";
+                        opt.selected = true;
+                        input.appendChild(opt);
+
+                        for (let id in json2)
+                        {
+                            opt = document.createElement("option");
+                            opt.value = id;
+                            opt.innerHTML = json2[id];
+                            if (json2[id] == value)
+                            {
+                                opt.selected = true;
+                                input.setAttribute("value", id);
+                            }
+                            input.appendChild(opt);
+                        } 
+                    }
+
+                    getList("Name", "teams", fillSelect);
+                    input.disabled = true;
+                }
+                else input.setAttribute("value", value);
+
+                input.readOnly = true;
+                input.required = true;
+                input.classList.add("editable");
+                input.setAttribute("name", label);
 
                 td.appendChild(input);
                 tr.appendChild(td);
@@ -67,13 +108,13 @@ class PersonPageHandler {
         const InfosElem = document.querySelector("#person-infos table#infos");
 
         InfosElem.appendChild(createTableRow("CONTACT", "", true));
-        InfosElem.appendChild(createTableRow("Email:", json["Email"]));
-        InfosElem.appendChild(createTableRow("Phone:", json["Phone"]));
+        InfosElem.appendChild(createTableRow("Email", json["Email"]));
+        InfosElem.appendChild(createTableRow("Phone", json["Phone"]));
 
         InfosElem.appendChild(createTableRow("OTHER INFO", "", true));
         const arrOfKeys = Object.keys(json);
         for (let i = 5; i < arrOfKeys.length; i++)
-        InfosElem.appendChild(createTableRow(arrOfKeys[i] + ":", json[arrOfKeys[i]]));
+        InfosElem.appendChild(createTableRow(arrOfKeys[i], json[arrOfKeys[i]]));
     }
 }
 
@@ -86,7 +127,50 @@ class PersonPageButtonsHandler
 
     static saveAction()
     {
+        const formElem = document.forms["person-edit-form"];
+        if (!formElem.checkValidity()) return;
+        const keys = Object.keys(formElem);
 
+        //Check if form has changed
+        let changed = false;
+        for (let i = 0; i < keys.length; i++)
+        {
+            if (formElem[keys[i]].value != formElem[keys[i]].getAttribute("value"))
+            {
+                changed = true;
+                break;
+            }
+        }
+        if (!changed) return;
+
+        const josnToSend = {
+            firstname: formElem["name"].value.substring(0, formElem["name"].value.search(" ")),
+            lastname: formElem["name"].value.substring(formElem["name"].value.search(" ") + 1),
+            email: formElem["Email"].value,
+            phone: formElem["Phone"].value
+        };
+
+        for (let i = 3; i < keys.length - 4; i++)
+            josnToSend[i - 3] = formElem[i].value;
+
+        const http = new XMLHttpRequest();
+        http.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                console.log(this.responseText);
+            }
+        }
+
+        if (PersonPageHandler.currentID == 0)
+            http.open("POST", `../controller/send_data/send_data_controller.php/${PersonPageHandler.type}}/insert`);
+        else
+            http.open("POST", 
+                "../controller/send_data/send_data_controller.php/" +
+                `${PersonPageHandler.type}/update?id=${PersonPageHandler.currentID}`);
+       
+        http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        http.send(JSON.stringify(josnToSend));
     }
 
     static editAction()
@@ -101,6 +185,7 @@ class PersonPageButtonsHandler
         editableInputs.forEach(function(elem) { 
             elem.readOnly = false;
             elem.style.border = "1px solid black";
+            elem.disabled = false;
         });
     }
 
@@ -122,6 +207,7 @@ class PersonPageButtonsHandler
             elem.readOnly = true;
             elem.value = elem.getAttribute("value");
             elem.style.border = "1px solid #fff";
+            if (elem.nodeName == "SELECT") elem.disabled = true;
         });
     }
 }

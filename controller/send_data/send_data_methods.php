@@ -35,7 +35,10 @@ class SendData
         $this->conn->query($sqlQuery);
         
         if ($this->conn->errno)
+        {
             echo "Some error has occure when trying to update data";
+            echo $this->conn->error;
+        }
     }
 
     function taskInsert($json)
@@ -58,5 +61,59 @@ class SendData
 
         if ($this->conn->errno)
             echo "Some error has occure when trying to delete task\n".$this->conn->error;
+    }
+
+    function employeeUpdate($json, $id)
+    {
+        $sqlQuery = "UPDATE employees SET ".
+                    "Name = '" . $json->firstname . "', ".
+                    "Lastname = '" . $json->lastname . "', ".
+                    "Phone = '" . $json->phone . "', ".
+                    "Email = '" . $json->email . "', ".
+                    "Employment_date = '" . $json->{"0"} . "', ".
+                    "Salary = " . $json->{"1"} . ", ".
+                    "Team = " . $json->{"2"} . " WHERE ID = $id ";
+
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to update data";
+            echo $this->conn->error;
+        }
+    }
+
+    function employeeInsert($json)
+    {
+    }
+
+    function employeeDelete($id)
+    {
+    }
+
+    function customerUpdate($json, $id)
+    {
+        $sqlQuery = "UPDATE customers SET ".
+                    "Name = '" . $json->firstname . "', ".
+                    "Lastname = '" . $json->lastname . "', ".
+                    "Phone = '" . $json->phone . "', ".
+                    "Email = '" . $json->email . "', ".
+                    "Last_Contact = '" . $json->{"0"} . "' WHERE ID = $id ";
+
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to update data";
+            echo $this->conn->error;
+        }
+    }
+
+    function customerInsert($json)
+    {
+    }
+
+    function customerDelete($id)
+    {
     }
 }

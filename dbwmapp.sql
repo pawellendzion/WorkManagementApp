@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 23 Lut 2022, 15:58
+-- Czas generowania: 15 Mar 2022, 15:00
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 8.0.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `customers` (
   `ID` int(11) NOT NULL,
   `Name` varchar(20) NOT NULL,
   `Lastname` varchar(30) NOT NULL,
-  `Phone` varchar(16) NOT NULL,
+  `Phone` varchar(11) NOT NULL,
   `Email` varchar(70) NOT NULL,
   `Last_Contact` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -41,22 +41,22 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`ID`, `Name`, `Lastname`, `Phone`, `Email`, `Last_Contact`) VALUES
-(1, 'Jan', 'Kowalski', '(+48)000-111-222', 'jkowal@email.com', NULL),
-(2, 'Adam', 'Sopek', '(+48)111-222-333', 'asopek@email.com', NULL),
-(3, 'Marta', 'Kini', '(+48)222-333-444', 'mkini@email.com', NULL),
-(4, 'Piotr', 'Wita', '(+48)333-444-555', 'pwita@email.com', NULL),
-(5, 'Marcin', 'Melski', '(+48)444-555-666', 'mmelski@email.com', NULL),
-(6, 'Mateusz', 'Kiro', '(+48)555-666-777', 'mkiro@email.com', NULL),
-(7, 'Aleksandra', 'Wolinowska', '(+48)666-777-888', 'awolinowska@email.com', NULL),
-(8, 'Adam', 'Policki', '(+48)777-888-999', 'apolicki@email.com', NULL),
-(9, 'Damian', 'Chwilo', '(+48)888-999-000', 'dchwilo@email.com', NULL),
-(10, 'Anna', 'Jonik', '(+48)999-000-111', 'ajonik@email.com', NULL),
-(11, 'Beata', 'Tomik', '(+48)000-222-111', 'btomik@email.com', NULL),
-(12, 'Alicja', 'Mowik', '(+48)111-333-222', 'amowik@email.com', NULL),
-(13, 'Piotr', 'Omotek', '(+48)222-444-333', 'pomotek@email.com', NULL),
-(14, 'Anna', 'Nomicka', '(+48)333-555-444', 'anomicka@email.com', NULL),
-(15, 'Witold', 'Grecki', '(+48)444-666-555', 'wgrecki@email.com', NULL),
-(16, 'Paweł', 'Gracki', '(+48)555-777-666', 'pgracki@email.com', NULL);
+(1, 'Jan', 'Kowalski', '000-111-222', 'jkowal@email.com', NULL),
+(2, 'Adam', 'Sopek', '111-222-333', 'asopek@email.com', NULL),
+(3, 'Marta', 'Kini', '222-333-444', 'mkini@email.com', NULL),
+(4, 'Piotr', 'Wita', '333-444-555', 'pwita@email.com', NULL),
+(5, 'Marcin', 'Melski', '444-555-666', 'mmelski@email.com', NULL),
+(6, 'Mateusz', 'Kiro', '555-666-777', 'mkiro@email.com', NULL),
+(7, 'Aleksandra', 'Wolinowska', '666-777-888', 'awolinowska@email.com', NULL),
+(8, 'Adam', 'Policki', '777-888-999', 'apolicki@email.com', NULL),
+(9, 'Damian', 'Chwilo', '888-999-000', 'dchwilo@email.com', NULL),
+(10, 'Anna', 'Jonik', '999-000-111', 'ajonik@email.com', NULL),
+(11, 'Beata', 'Tomik', '000-222-111', 'btomik@email.com', NULL),
+(12, 'Alicja', 'Mowik', '111-333-222', 'amowik@email.com', NULL),
+(13, 'Piotr', 'Omotek', '222-444-333', 'pomotek@email.com', NULL),
+(14, 'Anna', 'Nomicka', '333-555-444', 'anomicka@email.com', NULL),
+(15, 'Witold', 'Grecki', '444-666-555', 'wgrecki@email.com', NULL),
+(16, 'Paweł', 'Gracki', '555-777-666', 'pgracki@email.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`ID`, `Title`, `ID_Customer`, `ID_Team`, `Deadline`, `Status`) VALUES
-(1, 'Catering website', 10, NULL, '2022-03-22', 'to do'),
+(1, 'Catering', 10, NULL, '2022-02-23', 'to do'),
 (2, 'Sport website', 2, 1, '2022-01-15', 'completed'),
 (3, 'Gov website', 3, 2, '2022-02-12', 'working on'),
 (4, 'Blog', 4, 1, '2022-02-05', 'working on');
@@ -190,7 +190,7 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT dla tabeli `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT dla tabeli `teams`
