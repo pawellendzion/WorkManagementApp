@@ -1,8 +1,8 @@
 <div id="wrapper-person-page" style="display: none">
     <div id="container">
-        <form id="person-edit-form" action="#">
+        <form id="person-edit-form" onsubmit="return false">
             <div id="person-name-div">
-                <input name="name" id="person-name" class="editable" placeholder="Fullname" readonly required>
+                <input name="name" id="person-name" class="editable" placeholder="Fullname" autocomplete="off" readonly required>
             </div>
             <div id="person-infos">
                 <table id="infos"></table>

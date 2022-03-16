@@ -1,7 +1,9 @@
-class PersonPageHandler {
+class PersonPageHandler 
+{
     static domElement = document.getElementById("wrapper-person-page");
     static currentID = undefined;
     static type = undefined;
+    static showed = false;
 
     static toggle(type, id)
     {
@@ -11,6 +13,13 @@ class PersonPageHandler {
             this.currentID = id;
             this.type = type;
             getPersonInfo(type, id, this.showInfo);
+
+            if (id == 0) 
+                (async() => {
+                    while(this.showed == false)
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                    PersonPageButtonsHandler.setupForNew();
+                })();
         }
         else 
         {
@@ -24,10 +33,11 @@ class PersonPageHandler {
         }
     }
 
-    static showInfo(json)
+    static showInfo = (json) =>
     {
         const nameElem = document.querySelector("#person-name");
-        nameElem.setAttribute("value", json["Name"] + " " + json["Lastname"]);
+        nameElem.setAttribute("value", json["Name"] + (json["ID"] ? " " : "") + json["Lastname"]);
+        nameElem.value = nameElem.getAttribute("value");
         
         const createTableRow = function(label, value, colspan = false) {
             const tr = document.createElement("tr");
@@ -56,6 +66,11 @@ class PersonPageHandler {
                 {
                     input.pattern = "[0-9]{3}-[0-9]{3}-[0-9]{3}";
                     input.placeholder = "XXX-XXX-XXX";
+                }
+                else if (label.match(/email/i))
+                {
+                    input.type = "email";
+                    input.placeholder = "example@email.com";
                 }
                 else if (label.match(/salary/i))
                 {
@@ -97,6 +112,7 @@ class PersonPageHandler {
                 input.required = true;
                 input.classList.add("editable");
                 input.setAttribute("name", label);
+                input.autocomplete = "off";
 
                 td.appendChild(input);
                 tr.appendChild(td);
@@ -115,6 +131,8 @@ class PersonPageHandler {
         const arrOfKeys = Object.keys(json);
         for (let i = 5; i < arrOfKeys.length; i++)
         InfosElem.appendChild(createTableRow(arrOfKeys[i], json[arrOfKeys[i]]));
+
+        this.showed = true;
     }
 }
 
@@ -146,8 +164,8 @@ class PersonPageButtonsHandler
         const josnToSend = {
             firstname: formElem["name"].value.substring(0, formElem["name"].value.search(" ")),
             lastname: formElem["name"].value.substring(formElem["name"].value.search(" ") + 1),
-            email: formElem["Email"].value,
-            phone: formElem["Phone"].value
+            phone: formElem["Phone"].value,
+            email: formElem["Email"].value
         };
 
         for (let i = 3; i < keys.length - 4; i++)
@@ -159,11 +177,12 @@ class PersonPageButtonsHandler
             if (this.readyState == 4 && this.status == 200)
             {
                 console.log(this.responseText);
+                location.reload();
             }
         }
 
         if (PersonPageHandler.currentID == 0)
-            http.open("POST", `../controller/send_data/send_data_controller.php/${PersonPageHandler.type}}/insert`);
+            http.open("POST", `../controller/send_data/send_data_controller.php/${PersonPageHandler.type}/insert`);
         else
             http.open("POST", 
                 "../controller/send_data/send_data_controller.php/" +
@@ -171,6 +190,35 @@ class PersonPageButtonsHandler
        
         http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         http.send(JSON.stringify(josnToSend));
+    }
+
+    static toggleEdiatbles(onOffBool)
+    {
+        let editableInputs = document.querySelectorAll(".editable");
+        editableInputs.forEach(function(elem) {
+            elem.readOnly = !onOffBool;
+            if (!onOffBool)
+            { 
+                elem.value = elem.getAttribute("value");
+                elem.style.border = "1px solid #fff";
+            }
+            else
+            {
+                elem.style.border = "1px solid black";
+            }
+            if (elem.nodeName == "SELECT") elem.disabled = !onOffBool;
+        });
+    }
+
+    static setupForNew()
+    {
+        this.edit.style.display = "none";
+        this.cancel.style.display = "none";
+        
+        this.save.style.display = "inline-block";
+        this.close.style.display = "inline-block";
+
+        this.toggleEdiatbles(true);
     }
 
     static editAction()
@@ -181,17 +229,24 @@ class PersonPageButtonsHandler
         this.save.style.display = "inline-block";
         this.cancel.style.display = "inline-block";
 
-        let editableInputs = document.querySelectorAll(".editable");
-        editableInputs.forEach(function(elem) { 
-            elem.readOnly = false;
-            elem.style.border = "1px solid black";
-            elem.disabled = false;
-        });
+        this.toggleEdiatbles(true);
     }
 
     static closeAction()
     {
         PersonPageHandler.toggle();
+
+        this.edit.style.display = "inline-block";
+        this.close.style.display = "inline-block";
+
+        this.save.style.display = "none";
+        this.cancel.style.display = "none";
+
+        PersonPageHandler.showed = false;
+
+        let editableInputs = document.querySelector("#person-name.editable");
+        editableInputs.style.border = "1px solid #fff";
+        editableInputs.readOnly = true;
     }
 
     static cancelAction()
@@ -202,12 +257,6 @@ class PersonPageButtonsHandler
         this.save.style.display = "none";
         this.cancel.style.display = "none";
 
-        let editableInputs = document.querySelectorAll(".editable");
-        editableInputs.forEach(function(elem) {
-            elem.readOnly = true;
-            elem.value = elem.getAttribute("value");
-            elem.style.border = "1px solid #fff";
-            if (elem.nodeName == "SELECT") elem.disabled = true;
-        });
+        this.toggleEdiatbles(false);
     }
 }

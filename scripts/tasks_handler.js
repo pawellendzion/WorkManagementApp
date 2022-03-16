@@ -62,7 +62,7 @@ function showDataOfCurrentTask(json)
         if (args[3] != "status")
         {
             let optElem = document.createElement("option");
-                optElem.value = "NULL";
+                optElem.value = "";
                 optElem.innerHTML = "Not assign";
                 optElem.selected = true;
                 select.appendChild(optElem);
@@ -114,7 +114,7 @@ function saveData()
     const form = document.querySelector("#edit-form");
     const title = form["title"].value;
     const customer = form["customer"].value;
-    const team = form["team"].value;
+    const team = form["team"].value == "" ? 0 : form["team"].value;
     const deadline = form["deadline"].value;
     const status = form["status"].value;
     const id = parseInt(idOfCurrnetTask);

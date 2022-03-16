@@ -3,15 +3,16 @@
 class GetData
 {
     private $conn;
-    
+    private $dbName;
+
     function __construct()
     {
         $serverName = "localhost";
         $userName = "root";
         $password = "";
-        $dbName = "dbwmapp";
+        $this->dbName = "dbwmapp";
 
-        $this->conn = new \mysqli($serverName, $userName, $password, $dbName);
+        $this->conn = new \mysqli($serverName, $userName, $password, $this->dbName);
 
         if ($this->conn->connect_error)
             die("Connection failed: " . $this->conn->connect_error);
@@ -210,11 +211,28 @@ class GetData
 
     function getPerson($type, $id)
     {
+        if ($id == 0)
+        {
+            $sqlQuery = "SELECT column_name
+                         FROM information_schema.columns
+                         WHERE  table_name = '$type"."s'
+                             AND table_schema = '$this->dbName'";
+            
+            $result = $this->conn->query($sqlQuery);
+            while ($row = $result->fetch_row())
+            {
+                $jsonResult[$row[0]] = "";
+            }
+            echo json_encode($jsonResult);
+
+            return;
+        }
+
         if ($type == "employee")
         {
-            $sqlQuery = "SELECT employees.ID, employees.Name, Lastname, Email, Phone,
-                         Employment_date as 'Employment date', Salary, teams.Name as 'Team name'
-                         FROM employees LEFT JOIN teams ON Team = teams.ID WHERE employees.ID = $id";
+            $sqlQuery = "SELECT employees.ID, employees.Name, Lastname, Phone, Email,
+                        Employment_date as 'Employment date', Salary, teams.Name as 'Team name'
+                        FROM employees LEFT JOIN teams ON Team = teams.ID WHERE employees.ID = $id";
         }
         else
             $sqlQuery = "SELECT * FROM $type"."s WHERE ID = $id";

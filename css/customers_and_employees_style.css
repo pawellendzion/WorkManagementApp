@@ -90,6 +90,19 @@ tr.person:hover {
     background-color: #2fa8e9;
 }
 
+.add-new {
+    background-color: transparent;
+    color: rgb(180, 180, 180);
+    border: none;
+    outline: none;
+    font-size: .7em;
+    cursor: pointer;
+}
+
+.add-new:hover {
+    color: rgb(135, 180, 199);
+}
+
 /* person info page */
 #wrapper-person-page {
     position: absolute;

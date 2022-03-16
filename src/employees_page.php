@@ -19,7 +19,7 @@
 
     <div class="wrapper">
         <div>
-            <p>Employees <span id="recordsCount"></span></p>
+            <p>Employees <span id="recordsCount"></span> <button class="add-new" onclick="PersonPageHandler.toggle('employee', 0)">+ add new</button></p>
             <div class="table">
                 <table>
                     <thead>

@@ -85,6 +85,17 @@ class SendData
 
     function employeeInsert($json)
     {
+        $sqlQuery = "INSERT INTO employees".
+                    " VALUE(0, '$json->firstname', '$json->lastname', '$json->phone', '$json->email', '".
+                    $json->{"0"} . "', " . $json->{"1"} . ", " . $json->{"2"} . ")";
+        
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to insert data";
+            echo $this->conn->error;
+        }
     }
 
     function employeeDelete($id)
