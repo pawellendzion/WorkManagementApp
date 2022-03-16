@@ -174,15 +174,31 @@ tr.person:hover {
 #wrapper-person-page #container #buttons {
     margin-top: 10px;
     width: 100%;
-    height: 40px;
+    height: 70px;
 }
 
 #wrapper-person-page #container #buttons input {
     width: 50%;
-    height: 100%;
+    height: 65%;
     border: none;
     font-weight: bold;
     font-size: 1em;
+    cursor: pointer;
+}
+
+#delete {
+    width: 100%;
+    height: 35%;
+    border: none;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #353b48;
+    color: #86888b;
+}
+
+#delete:hover {
+    background-color: #4e525c;
 }
 
 #edit {

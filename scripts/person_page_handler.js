@@ -259,4 +259,24 @@ class PersonPageButtonsHandler
 
         this.toggleEdiatbles(false);
     }
+
+    static deleteAction()
+    {
+        if (confirm("Are you sure to delete this person"))
+        {
+            const http = new XMLHttpRequest();
+            http.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    console.log(this.responseText);
+                    location.reload();
+                }
+            }
+
+            http.open("POST", "../controller/send_data/send_data_controller.php/"+
+                      `${PersonPageHandler.type}/delete?id=${PersonPageHandler.currentID}`);
+            http.send();
+        }
+    }
 }

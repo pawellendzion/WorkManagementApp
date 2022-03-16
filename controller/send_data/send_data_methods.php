@@ -100,6 +100,15 @@ class SendData
 
     function employeeDelete($id)
     {
+        $sqlQuery = "DELETE FROM employees WHERE ID=$id";
+
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to delete data";
+            echo $this->conn->error;
+        }
     }
 
     function customerUpdate($json, $id)
