@@ -39,7 +39,7 @@ class PersonPageHandler
         nameElem.setAttribute("value", json["Name"] + (json["ID"] ? " " : "") + json["Lastname"]);
         nameElem.value = nameElem.getAttribute("value");
         
-        const createTableRow = function(label, value, colspan = false) {
+        const createTableRow = (label, value, colspan = false) => {
             const tr = document.createElement("tr");
 
             let td = document.createElement("td");
@@ -57,10 +57,12 @@ class PersonPageHandler
                 td = document.createElement("td");
                 
                 let input = document.createElement("input");
-                let pattern = /date|contact/i;
-                if (label.match(pattern))
+                input.required = true;
+
+                if (label.match(/date|contact/i))
                 {
                     input.type = "date";
+                    if (this.type == "customer") input.required = false;
                 }
                 else if (label.match(/phone/i))
                 {
@@ -109,7 +111,6 @@ class PersonPageHandler
                 else input.setAttribute("value", value);
 
                 input.readOnly = true;
-                input.required = true;
                 input.classList.add("editable");
                 input.setAttribute("name", label);
                 input.autocomplete = "off";
@@ -170,7 +171,7 @@ class PersonPageButtonsHandler
 
         for (let i = 3; i < keys.length - 5; i++)
             josnToSend[i - 3] = formElem[i].value;
-
+        
         const http = new XMLHttpRequest();
         http.onreadystatechange = function()
         {

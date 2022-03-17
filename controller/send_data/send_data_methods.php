@@ -131,9 +131,29 @@ class SendData
 
     function customerInsert($json)
     {
+        $sqlQuery = "INSERT INTO customers".
+                    " VALUE(0, '$json->firstname', '$json->lastname', '$json->phone', '$json->email', ".
+                    ($json->{"0"} == "" ? "NULL" : "'" . $json->{"0"} . "'") . ")";
+        
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to insert data";
+            echo $this->conn->error;
+        }
     }
 
     function customerDelete($id)
     {
+        $sqlQuery = "DELETE FROM customers WHERE ID=$id";
+
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to delete data";
+            echo $this->conn->error;
+        }
     }
 }
