@@ -58,6 +58,9 @@ switch($endpoints[0])
                 echo "Data cannot be access (teams) ".__FILE__;
         }
         break;
+    case "team":
+        $getData->getTeam($_REQUEST["id"]);
+        break;
     case "tasks":
         $getData->tasks();
         break;

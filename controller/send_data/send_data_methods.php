@@ -156,4 +156,27 @@ class SendData
             echo $this->conn->error;
         }
     }
+
+    function teamUpdate($json, $id)
+    {
+        $sqlQuery = "UPDATE teams SET ".
+                    "Name = '" . $json->team . "', ".
+                    "Leader = " . $json->leader . " WHERE ID = $id ";
+
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to update data";
+            echo $this->conn->error;
+        }
+    }
+
+    function teamInsert($json)
+    {
+    }
+
+    function teamDelete($id)
+    {
+    }
 }

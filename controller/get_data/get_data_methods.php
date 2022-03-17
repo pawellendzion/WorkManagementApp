@@ -103,7 +103,7 @@ class GetData
         {
             while($row = $result->fetch_assoc()) 
             {
-                echo "<tr onclick=\"\"".
+                echo "<tr onclick=\"TeamsHandler.toggle(" . $row["ID"] . ")\"".
                     "class=\"person\" id=\"team-". $row["ID"] ."\">" .
                     
                     "<td>" . $row["Name"] . "</td>" .
@@ -119,6 +119,38 @@ class GetData
         $result = $this->conn->query($sqlQuery);
 
         print_r($result->fetch_row()[0]);
+    }
+
+    function getTeam($id)
+    {
+        if ($id == 0)
+        {
+            $sqlQuery = "SELECT column_name
+                         FROM information_schema.columns
+                         WHERE  table_name = 'teams'
+                             AND table_schema = '$this->dbName'";
+            
+            $result = $this->conn->query($sqlQuery);
+            while ($row = $result->fetch_row())
+            {
+                $jsonResult[$row[0]] = "";
+            }
+            echo json_encode($jsonResult);
+
+            return;
+        }
+
+        $sqlQuery = "SELECT teams.Name, CONCAT(employees.Name, ' ', employees.Lastname) as Fullname
+                     FROM teams JOIN employees ON teams.Leader = employees.ID WHERE teams.ID = $id";
+
+        $result = $this->conn->query($sqlQuery)->fetch_assoc();
+
+        foreach($result as $key => $value)
+        {
+            $jsonResult[$key] = $value;
+        }
+
+        echo json_encode($jsonResult);
     }
 
     #endregion

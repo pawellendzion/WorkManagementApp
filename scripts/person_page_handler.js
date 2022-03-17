@@ -9,6 +9,9 @@ class PersonPageHandler
     {
         if (this.domElement.style.display == "none")
         {
+            document.querySelector("input#save").setAttribute("onclick", "PersonPageButtonsHandler.saveAction()")
+
+
             this.domElement.style.display = "block";
             this.currentID = id;
             this.type = type;

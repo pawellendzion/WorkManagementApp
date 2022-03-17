@@ -71,6 +71,26 @@ switch($endpoints[0])
                 echo "Data cannot be send (customer) ".__FILE__;
         }
         break;
+    
+    case "team":
+        switch($endpoints[1])
+        {
+            case "update":
+                $sendData->teamUpdate($json, $_REQUEST["id"]);
+                break;
+            
+            case "insert":
+                $sendData->teamInsert($json);
+                break;
+            
+            case "delete":
+                $sendData->teamDelete($_REQUEST["id"]);
+                break;
+
+            default:
+                echo "Data cannot be send (team) ".__FILE__;
+        }
+        break;
 
     default:
         echo __FILE__ . " error: wrong data parameter\n\r";
