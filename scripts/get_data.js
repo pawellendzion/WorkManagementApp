@@ -1,7 +1,7 @@
 //maxRecords has to be defined in template where this script is used
 
 /**
- * @typeOfRecords customers / employees
+ * @typeOfRecords customers / employees / teams
  */
 function getRecords(typeOfRecords, pageNum) 
 {

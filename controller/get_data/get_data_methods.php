@@ -91,6 +91,38 @@ class GetData
     
     #endregion
 
+    #region teams methods
+
+    function teams(int $from, int $to)
+    {
+        $sqlQuery = "SELECT teams.ID, teams.Name, CONCAT(employees.Name, ' ', employees.Lastname) as Fullname
+                     FROM teams JOIN employees ON teams.Leader = employees.ID LIMIT $from, $to";
+        $result = $this->conn->query($sqlQuery);
+
+        if ($result->num_rows > 0)
+        {
+            while($row = $result->fetch_assoc()) 
+            {
+                echo "<tr onclick=\"\"".
+                    "class=\"person\" id=\"team-". $row["ID"] ."\">" .
+                    
+                    "<td>" . $row["Name"] . "</td>" .
+                    "<td>" . $row["Fullname"] . "</td>" .
+                    "</tr>";
+            }
+        }
+    }
+
+    function teamsCount()
+    {
+        $sqlQuery = "SELECT COUNT(ID) FROM teams";
+        $result = $this->conn->query($sqlQuery);
+
+        print_r($result->fetch_row()[0]);
+    }
+
+    #endregion
+
     #region tasks methods
 
     function tasks()

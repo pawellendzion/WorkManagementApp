@@ -42,7 +42,22 @@ switch($endpoints[0])
                 echo "Data cannot be access (employees) ".__FILE__;
         }
         break;
-    
+
+    case "teams":
+        switch(@$endpoints[1])
+        {
+            case "count":
+                $getData->teamsCount();
+                break;
+                
+            case "":
+                $getData->teams($_REQUEST["from"], $_REQUEST["to"]);
+                break;
+
+            default:
+                echo "Data cannot be access (teams) ".__FILE__;
+        }
+        break;
     case "tasks":
         $getData->tasks();
         break;
