@@ -9,10 +9,6 @@ function toggleMenu()
 
 function highlightMenu(menu_part)
 {
-    document.querySelectorAll("#menu .active").forEach(function(value) {
-        value.classList.remove("active");
-    });
-
     switch(menu_part)
     {
         case "home": 
@@ -29,6 +25,10 @@ function highlightMenu(menu_part)
         
         case "customers": 
             customers.classList.add("active");
+            break;
+
+        case "teams": 
+            teams.classList.add("active");
             break;
     }
 }

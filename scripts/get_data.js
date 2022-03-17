@@ -54,7 +54,7 @@ function getRecordsCount(typeOfRecords)
 
 /**
  * @ofWhat example: Name, Lastname, Fullname ,Phone, Email, etc.
- * @typeOfRecords customers / employees / teams / leaders
+ * @typeOfRecords customers / employees / teams / leaders / notLeader
  */
 function getList(ofWhat, typeOfRecords, callback)
 {
@@ -187,7 +187,7 @@ function getLeader_Team(type, id, callback)
     http.send();
 }
 
-function getPersonInfo(type, id, callback)
+function getPersonInfo(type, id, callback, ifAsync = true)
 {
     const http = new XMLHttpRequest();
     
@@ -198,7 +198,7 @@ function getPersonInfo(type, id, callback)
         }
     }
 
-    http.open("GET", `../controller/get_data/get_data_controller.php/person?id=${id}&type=${type}`);
+    http.open("GET", `../controller/get_data/get_data_controller.php/person?id=${id}&type=${type}`, ifAsync);
     http.send();
 }
 

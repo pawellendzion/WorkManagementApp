@@ -95,7 +95,7 @@ class GetData
 
     function teams(int $from, int $to)
     {
-        $sqlQuery = "SELECT teams.ID, teams.Name, CONCAT(employees.Name, ' ', employees.Lastname) as Fullname
+        $sqlQuery = "SELECT teams.ID, teams.Name, CONCAT(employees.Name, ' ', employees.Lastname) as Fullname, Leader
                      FROM teams JOIN employees ON teams.Leader = employees.ID LIMIT $from, $to";
         $result = $this->conn->query($sqlQuery);
 
@@ -103,8 +103,8 @@ class GetData
         {
             while($row = $result->fetch_assoc()) 
             {
-                echo "<tr onclick=\"TeamsHandler.toggle(" . $row["ID"] . ")\"".
-                    "class=\"person\" id=\"team-". $row["ID"] ."\">" .
+                echo "<tr onclick=\"TeamsHandler.toggle(" . $row["ID"] . ", this)\"".
+                    "class=\"person\" id=\"team-" . $row["ID"] . "-" . $row["Leader"] . "\">" .
                     
                     "<td>" . $row["Name"] . "</td>" .
                     "<td>" . $row["Fullname"] . "</td>" .
@@ -236,7 +236,12 @@ class GetData
             $type = "employees";
             $getLeaders = "JOIN teams ON $type.ID = Leader";
         }
-        
+        else if ($type == "notLeader")
+        {
+            $type = "employees";
+            $getLeaders = "WHERE employees.ID NOT IN (SELECT Leader FROM teams);";
+        }
+
         if ($ofWhat == "Fullname")
             $ofWhat = "CONCAT($type.Name, ' ', $type.Lastname)";
 

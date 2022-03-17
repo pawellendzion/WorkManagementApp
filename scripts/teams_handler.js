@@ -5,18 +5,21 @@
 class TeamsHandler
 {
     static domElement = document.getElementById("wrapper-person-page");
+    static recodDomElem = undefined;
     static currentID = undefined;
     static showed = false;
 
-    static toggle(id)
+    static toggle(id, recodDomElem)
     {
         if (this.domElement.style.display == "none")
         {
+            this.showed = false;
             document.querySelector("input#save").setAttribute("onclick", "TeamPageButtonsHandler.saveAction()")
             document.querySelector("input#delete").setAttribute("onclick", "TeamPageButtonsHandler.deleteAction()")
 
             this.domElement.style.display = "block";
             this.currentID = id;
+            this.recodDomElem = recodDomElem;
             getTeamInfo(id, this.showInfo);
 
             if (id == 0) 
@@ -24,13 +27,13 @@ class TeamsHandler
                     while(this.showed == false)
                         await new Promise(resolve => setTimeout(resolve, 100));
                     PersonPageButtonsHandler.setupForNew();
-                    this.showed = false;
                 })();
         }
         else 
         {
             this.domElement.style.display = "none";
             this.currentID = undefined;
+            this.recodDomElem = undefined;
 
             //Clear fields
             document.querySelector("#person-name").setAttribute("value", "");
@@ -60,19 +63,32 @@ class TeamsHandler
             if (!colspan)
             {
                 td = document.createElement("td");
-                
-                let input = document.createElement("input");
 
-                input = document.createElement("select");
+                let input = document.createElement("select");
                 
-                const fillSelect = function(json2){
+                const fillSelect = (json2) => {
                     let opt = document.createElement("option");
-                    opt.value = "";
-                    input.setAttribute("value", "");
-                    opt.innerHTML = "Not assign";
+                    if (this.currentID != 0)
+                    {
+                        const getEmployee = (json3) =>
+                        {
+                            opt.value = json3["ID"];
+                            input.setAttribute("value", json3["ID"]);
+                            opt.innerHTML = json3["Name"] + " " + json3["Lastname"];
+                        }
+                        
+                        let tempId = (TeamsHandler.recodDomElem.id.match(/-([0-9]{1})$/i))[1];
+                        getPersonInfo("employee", tempId, getEmployee, false);
+                    }
+                    else
+                    {
+                        opt.value = "";
+                        input.setAttribute("value", "");
+                        opt.innerHTML = "Not assign";
+                    }
+                    
                     opt.selected = true;
                     input.appendChild(opt);
-
                     for (let id in json2)
                     {
                         opt = document.createElement("option");
@@ -87,7 +103,8 @@ class TeamsHandler
                     } 
                 }
 
-                getList("Fullname", "employees", fillSelect);
+                getList("Fullname", "notLeader", fillSelect);
+
                 input.disabled = true;
 
                 input.setAttribute("value", value);
