@@ -174,6 +174,16 @@ class SendData
 
     function teamInsert($json)
     {
+        $sqlQuery = "INSERT INTO teams".
+                    " VALUE(0, '$json->team', $json->leader)";
+        
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to insert data";
+            echo $this->conn->error;
+        }
     }
 
     function teamDelete($id)

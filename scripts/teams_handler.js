@@ -24,6 +24,7 @@ class TeamsHandler
                     while(this.showed == false)
                         await new Promise(resolve => setTimeout(resolve, 100));
                     PersonPageButtonsHandler.setupForNew();
+                    this.showed = false;
                 })();
         }
         else 

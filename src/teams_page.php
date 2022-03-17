@@ -19,7 +19,7 @@
     
     <div class="wrapper">
         <div>
-            <p>Teams <span id="recordsCount"></span> <!--<button class="add-new" onclick="">+ add new</button>--></p>
+            <p>Teams <span id="recordsCount"></span> <button class="add-new" onclick="TeamsHandler.toggle(0)">+ add new</button></p>
             <div class="table">
                 <table>
                     <thead>
