@@ -168,7 +168,7 @@ class PersonPageButtonsHandler
             email: formElem["Email"].value
         };
 
-        for (let i = 3; i < keys.length - 4; i++)
+        for (let i = 3; i < keys.length - 5; i++)
             josnToSend[i - 3] = formElem[i].value;
 
         const http = new XMLHttpRequest();

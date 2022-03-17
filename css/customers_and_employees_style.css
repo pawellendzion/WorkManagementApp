@@ -186,7 +186,7 @@ tr.person:hover {
     cursor: pointer;
 }
 
-#delete {
+#wrapper-person-page #container #buttons input#delete {
     width: 100%;
     height: 35%;
     border: none;
@@ -197,7 +197,7 @@ tr.person:hover {
     color: #86888b;
 }
 
-#delete:hover {
+#wrapper-person-page #container #buttons input#delete:hover {
     background-color: #4e525c;
 }
 
