@@ -13,7 +13,7 @@ class TeamsHandler
         if (this.domElement.style.display == "none")
         {
             document.querySelector("input#save").setAttribute("onclick", "TeamPageButtonsHandler.saveAction()")
-
+            document.querySelector("input#delete").setAttribute("onclick", "TeamPageButtonsHandler.deleteAction()")
 
             this.domElement.style.display = "block";
             this.currentID = id;
@@ -157,5 +157,25 @@ class TeamPageButtonsHandler
        
         http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         http.send(JSON.stringify(josnToSend));
+    }
+
+    static deleteAction()
+    {
+        if (confirm("Are you sure to delete this team"))
+        {
+            const http = new XMLHttpRequest();
+            http.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    console.log(this.responseText);
+                    location.reload();
+                }
+            }
+
+            http.open("POST", "../controller/send_data/send_data_controller.php/"+
+                      `team/delete?id=${TeamsHandler.currentID}`);
+            http.send();
+        }
     }
 }

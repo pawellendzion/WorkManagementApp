@@ -188,5 +188,14 @@ class SendData
 
     function teamDelete($id)
     {
+        $sqlQuery = "DELETE FROM teams WHERE ID=$id";
+
+        $this->conn->query($sqlQuery);
+
+        if ($this->conn->errno)
+        {
+            echo "Some error has occure when trying to delete data";
+            echo $this->conn->error;
+        }
     }
 }
