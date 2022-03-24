@@ -1,4 +1,5 @@
-(Still working on it)
+(Reworking app)
 
-I made this app with tool called XAMPP, which provide me needed stuff for making webapp.<br />
-I used MySQL database. File with exported database is called "dbwmapp.sql".
+I moving this app from XAMPP. <br />
+Now I will use Docekr with nginx and mysql image.<br />
+Also now I will use framework Symfony and React.
